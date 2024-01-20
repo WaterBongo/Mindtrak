@@ -5,12 +5,13 @@ import { Image } from 'react-native';
 
 import Home from './pages/Home';
 import Create from './pages/Create';
+import Survey from './pages/Survey';
 
 const homeName = 'Home';
 const createName = 'Create';
+const surveyName = 'Survey';
 
 const Tab = createBottomTabNavigator();
-
 
 export default function MainContainer() {
     return (
@@ -18,6 +19,7 @@ export default function MainContainer() {
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({ route }) => ({
+                    headerShown: false, // Add this line to hide the header
                     tabBarIcon: ({ focused }) => {
                         let image;
                         let rn = route.name;
@@ -27,28 +29,35 @@ export default function MainContainer() {
                         } else if (rn === createName) {
                             image = focused ? require('./assets/createfocused.webp') : require('./assets/create.webp');
                         }
+                        else if (rn === surveyName) {
+                            image = focused ? require('./assets/surveyfocused.webp') : require('./assets/survey.webp');
+                        }
 
-                        // Set a fixed size for the images
-                        return <Image source={image} style={{ width: 24, height: 24 }} />;
+                        return <Image source={image} style={{ width: 30, height: 30 }} />;
                     },
+                    tabBarShowLabel: false,
+                    tabBarStyle: {
+                        backgroundColor: '#689794',
+                        borderTopRightRadius: 30,
+                        borderTopLeftRadius: 30,
+                        borderBottomLeftRadius: 30,
+                        borderBottomRightRadius: 30,
+                        position: 'absolute',
+                        bottom: 20,
+                        left: 10,
+                        right: 10,
+                        height: 80,
+                        paddingBottom: 10,
+                    }
                 })}>
                  
                 <Tab.Screen name={homeName} component={Home}/>
                 <Tab.Screen name={createName} component={Create}/>
+                <Tab.Screen name={surveyName} component={Survey}/>
 
             </Tab.Navigator>
         </NavigationContainer>
     );
 }
 
-
-
-
-// tabBarOptions={{
-//     activeTintColor: 'tomato', // Color of the icon and text when the tab is active
-//     inactiveTintColor: 'gray', // Color of the icon and text when the tab is inactive
-//     style: {
-//         backgroundColor: '#1e90ff', // Background color of the navigation bar
-//         // Add additional styling if needed
-//     },
-// }}
+//#689794

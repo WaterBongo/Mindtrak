@@ -2,6 +2,9 @@ import React, { useCallback } from 'react';
 import { Text, View, StyleSheet, Image, Button } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import * as FileSystem from 'expo-file-system';
+import {ScrollView, Dimensions} from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const PickFileButton = () => {
     const handlePress = useCallback(async () => {
@@ -31,7 +34,7 @@ export default function Home() {
   
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Horizontal box with image and text */}
       <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Heart Rate vs. Stress Levels</Text>
         <Image 
@@ -45,8 +48,8 @@ export default function Home() {
           source={require('./assets/sleephr.png')} // Replace with your image path
           style={styles.boxImage}
         />
-      <Text style={[styles.moodText, { fontFamily: 'Poppins_500Medium' }]}>Your sleep hours are imported with a combination of Apple Health data export </Text>
-    </View>
+      <Text style={[styles.moodText, { fontFamily: 'Poppins_500Medium' }]}>Your sleep hours are imported by historical Apple Health data. We also have support for syncing your current sleep data to allow for seamless logging.</Text>
+    </ScrollView>
     
   );
 }
@@ -55,8 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
     paddingTop: 60,
     paddingLeft: 20,
     fontFamily: "Poppins_500Medium",
@@ -71,9 +72,9 @@ const styles = StyleSheet.create({
   moodText: {
     paddingTop: 5,
     paddingBottom: 7,
-    paddingLeft: 10,
+    paddingLeft: 5,
     fontSize: 18,
-    paddingRight: 1,
+    paddingRight: 10,
   },
   recommendationsText: {
     paddingTop: 40,

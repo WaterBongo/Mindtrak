@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cfc2023rn",
-    "slug": "cfc2023rn",
+    "name": "cruzhacks mental app",
+    "slug": "cruzhacks mental app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,8 +15,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "usesIcloudStorage": true,
+      "bundleIdentifier": "com.cruzhacks.mentalapp"
     },
+    "plugins": [
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -26,5 +29,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+    
   }
 }

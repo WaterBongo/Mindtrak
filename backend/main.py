@@ -79,7 +79,7 @@ def journal_submiss():
     #return the journal id
 
 
-
+ 
 @app.route("/getadvice/<id>")
 def get_advice(id):
     return journals[id]['advice']

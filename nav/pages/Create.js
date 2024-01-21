@@ -82,7 +82,7 @@ export default function Survey() {
                     />
                     {/* <Button title="Submit" onPress={handleSubmit} style={style.submit}/> */}
                         <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
-                            <Ionicons name="checkmark-circle-outline" size={24} color="black" />
+                            <Ionicons name="checkmark-circle-outline" size={22} color="black" />
                         </TouchableOpacity>
                 
                 </View>

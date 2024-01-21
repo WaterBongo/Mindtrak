@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 
+
 export default function Home() {
   // Return the View
+
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -12,7 +14,14 @@ export default function Home() {
   if (!fontsLoaded) {
     return <Text>Loading...</Text>
   } else {
-  
+  const createBox = () => {
+    return (
+      <View style={styles.customBox}>
+        <Text style={styles.customBoxText}>First Text</Text>
+        <Text style={styles.customBoxText}>Second Text</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -28,12 +37,13 @@ export default function Home() {
         <Text style={styles.boxText}>   Happy!</Text>
       </View>
       <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium'}]}>Recommendations</Text>
-     
+        {createBox()}
     </View>
   );
 }
 }
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -42,6 +52,22 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingLeft: 20,
     fontFamily: "Poppins_500Medium",
+  },
+  customBox: {
+    marginTop: 20,
+    backgroundColor: '#E0E0E0',
+    padding: 10,
+    width: 330,
+    height: 100,
+    justifyContent: 'center', // Centers the text vertically
+    alignItems: 'center', // Centers the text horizontally
+    borderRadius: 30,
+  },
+  customBoxText: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 17,
+    color: '#333',
+    paddingTop: 5, // Add space between the two texts
   },
   helloText: {
     fontSize: 28,

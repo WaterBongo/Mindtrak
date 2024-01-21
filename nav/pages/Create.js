@@ -5,6 +5,15 @@ import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from
 import { height } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import { style } from 'deprecated-react-native-prop-types/DeprecatedViewPropTypes';
 
+const CreateBox = ({ data }) => {
+    return data.map((item, index) => (
+      <View key={index} style={styles.box}>
+        <Text style={styles.boxText}>{item.title}</Text>
+        {/* Other content of the box */}
+      </View>
+    ));
+  };
+
 export default function Survey() {
     const [modalVisible, setModalVisible] = useState(false);
     const [input1, setInput1] = useState('');
@@ -31,6 +40,10 @@ export default function Survey() {
         setInput2('');
         setInput3('');
         setModalVisible(false);
+        const newEntry = { input1, input2, input3 };
+        const existingEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+        existingEntries.push(newEntry);
+        localStorage.setItem('journalEntries', JSON.stringify(existingEntries));
         postData("heheaw").then((data) => {
   console.log(data); // JSON data parsed by `data.json()` call
 });
@@ -118,6 +131,23 @@ export default function Survey() {
 }
 
 const styles = StyleSheet.create({
+    box: {
+        // styles for your box
+        width: 338,
+        height: 127,
+        borderRadius: 25,
+        margin: 10,
+        padding: 10,
+        borderWidth: 1,
+        backgroundColor: '#F2F2F2',
+        borderColor: '#9AC3C9',
+      },
+    boxText:{
+        fontSize: 15,
+        color: '#365757',
+        fontFamily: 'Poppins_500Medium',
+    },
+    
     submit: {
         marginBottom: 15, // Adjust as needed
         marginTop: -5,

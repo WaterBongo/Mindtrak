@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Modal, StyleSheet, Button, Image, ImageBackground } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { LinearGradient } from 'react-native-svg';
 export default function Survey() {
     const [modalVisible, setModalVisible] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -51,7 +51,7 @@ export default function Survey() {
         return (
             
             <View style={styles.modalContent}>
-                <ImageBackground source={require('./assets/background.png')} style={styles.backgroundImage}>
+                {/* <ImageBackground source={require('./assets/background.png')} style={styles.backgroundImage}> */}
                 <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
                 {/* Display options here */}
                 {questions[currentQuestionIndex].options.map((option, index) => (
@@ -75,7 +75,7 @@ export default function Survey() {
                 {currentQuestionIndex === questions.length - 1 && (
                     <Button title="Submit" onPress={handleNextQuestion} />
                 )}
-                </ImageBackground>
+                {/* </ImageBackground> */}
             </View>
             
         );
@@ -111,10 +111,10 @@ export default function Survey() {
 }
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-    },
+    // backgroundImage: {
+    //     flex: 1,
+    //     resizeMode: 'cover',
+    // },
     container: {
         flex: 1,
         alignItems: 'center',

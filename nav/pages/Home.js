@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   RecommendationBox: {
     flexDirection: 'row', // Align children in a row
     alignItems: 'center', // Center items vertically in the container
-    backgroundColor: '#9AC3C9', // Background color of the box
+    backgroundColor: '#F2F2F2', // Background color of the box
     padding: 10, // Padding inside the box
     marginTop: 20,
     width: 330,

@@ -6,10 +6,12 @@ import { Image } from 'react-native';
 import Home from './pages/Home';
 import Create from './pages/Create';
 import Survey from './pages/Survey';
+import Health from './pages/Health';
 
 const homeName = 'Home';
 const createName = 'Create';
 const surveyName = 'Survey';
+const healthName = 'Health';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,21 +34,25 @@ export default function MainContainer() {
                         else if (rn === surveyName) {
                             image = focused ? require('./assets/surveyfocused.png') : require('./assets/survey.png');
                         }
+                        else if (rn === healthName) {
+                            image = focused ? require('./assets/healthfocused.png') : require('./assets/health.png');
+                        }
 
                         return <Image source={image} style={{ width: 50, height: 50 }} />;
                     },
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         backgroundColor: '#689794',
-                        borderTopRightRadius: 84,
-                        borderTopLeftRadius: 84,
-                        borderBottomLeftRadius: 84,
-                        borderBottomRightRadius: 84,
+                        borderTopRightRadius: 60,
+                        borderTopLeftRadius: 60,
+                        borderBottomLeftRadius: 60,
+                        borderBottomRightRadius: 60,
                         position: 'absolute',
-                        bottom: 20,
+                        bottom: 10,
                         left: 10,
                         right: 10,
-                        height: 80,
+                        height: 60,
+                        paddingTop: 10,
                         paddingBottom: 10,
                     }
                 })}>
@@ -54,6 +60,7 @@ export default function MainContainer() {
                 <Tab.Screen name={homeName} component={Home}/>
                 <Tab.Screen name={createName} component={Create}/>
                 <Tab.Screen name={surveyName} component={Survey}/>
+                <Tab.Screen name={healthName} component={Health}/>
 
             </Tab.Navigator>
         </NavigationContainer>

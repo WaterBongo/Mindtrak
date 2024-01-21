@@ -4,13 +4,13 @@
 		"path": "."
 	},
 	{
-		"path": "../Downloads/deca_app-main"
+		"path": "./"
 	},
 	{
-		"path": "../Downloads/deca_app-main/nav"
+		"path": "./nav"
 	},
 	{
-		"path": "../Downloads/deca_app-main/assets"
+		"path": "./assets"
 	}
 ],
   "settings": {}

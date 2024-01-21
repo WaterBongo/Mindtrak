@@ -4,7 +4,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { height } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import { style } from 'deprecated-react-native-prop-types/DeprecatedViewPropTypes';
+import {ScrollView, Dimensions} from 'react-native';
 
+const screenHeight = Dimensions.get('window').height;
 const CreateBox = ({ data }) => {
     return data.map((item, index) => (
       <View key={index} style={styles.box}>
@@ -66,7 +68,11 @@ export default function Survey() {
         return <Text>Loading...</Text>
       } else {
     return (
-        <View style={styles.container} multiline = {true}>
+        <ScrollView contentContainerStyle={styles.container} multiline = {true} snapToInterval={0}
+        disableIntervalMomentum={true} ref={r => (this.scrollView = r)}
+        onScrollEndDrag={e => {
+          return this.scrollView.scrollTo({ y: e.nativeEvent.contentOffset.y });
+        }} >
             {/* Text above the plus icon */}
             <Text style={styles.addText}>Journal</Text>
 
@@ -138,7 +144,7 @@ export default function Survey() {
                     <Text>{item.input3}</Text>
                 </View>
             ))}
-        </View>
+        </ScrollView>
     );
 }
 }

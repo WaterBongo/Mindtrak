@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, Modal, StyleSheet, Button } from 'react-native';
+import { View, TouchableOpacity, Text, Modal, StyleSheet, Button, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Survey() {
@@ -9,8 +9,12 @@ export default function Survey() {
 
     // Sample questions - replace with your actual questions
     const questions = [
-        { question: "Question 1", options: ["Option 1", "Option 2", "Option 3"] },
-        { question: "Question 2", options: ["Option 1", "Option 2", "Option 3"] },
+        { question: "How would you describe your overall energy level right now?", options: ["Very low", "Low", "Moderate","High","Very high"] },
+        { question: "What best describes your current emotional state?", options: ["Happy", "Sad", "Stressed", "Excited", "Calm"] },
+        { question: "On a scale of 1 to 10, how satisfied are you with your current situation?", options: ["Extremely dissatisfied", "2-4. Dissatisfied", "Neutral","6-8. Satisfied","9-10. Extremely satisfied"] },
+        { question: "How would you rate your level of motivation right now?", options: ["Very low", "Low", "Moderate"," High","Very high"] },
+        { question: "Which of the following words best describes your mood?", options: ["Relaxed", "Anxious", "Content"," Irritable","Energetic"] },
+
         // Add more questions as needed
     ];
 
@@ -60,10 +64,10 @@ export default function Survey() {
                 ))}
                 <View style={styles.navigationButtons}>
                     <TouchableOpacity onPress={handlePreviousQuestion}>
-                        <Ionicons name="arrow-back-circle" size={30} />
+                        <Ionicons name="arrow-back-circle" size={80} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleNextQuestion}>
-                        <Ionicons name="arrow-forward-circle" size={30} />
+                        <Ionicons name="arrow-forward-circle" size={80} />
                     </TouchableOpacity>
                 </View>
                 {currentQuestionIndex === questions.length - 1 && (
@@ -75,10 +79,18 @@ export default function Survey() {
 
     return (
         <View style={styles.container}>
+            <Image 
+          source={require('./assets/survey.webp')}
+          style={styles.boxImage}
+          />
             <TouchableOpacity onPress={() => !surveyDone && setModalVisible(true)}>
-                <Text style={styles.startSurveyText}>Start Survey</Text>
+
+                <View style={styles.horizontalBox}>
+                    <Text style={styles.startSurveyText}>                     Start Survey</Text>
+                </View>
+                <View style={styles.blackBox}></View>
             </TouchableOpacity>
-            {surveyDone && <Text>You can only do a survey once a day.</Text>}
+            {surveyDone && <Text style={styles.bottomText}>You can only do a survey once a day.</Text>}
 
             <Modal
                 animationType="slide"
@@ -102,47 +114,95 @@ const styles = StyleSheet.create({
     },
     startSurveyText: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: '500',
+        color: '#04406C',
     },
     optionButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: - 10,
+
     },
     circle: {
         width: 20,
         height: 20,
         borderRadius: 10,
         borderWidth: 1,
+        marginTop: 80,
         borderColor: 'grey',
         marginRight: 10,
     },
     selectedCircle: {
-        backgroundColor: 'blue', // Change this color as needed
+        backgroundColor: 'blue',
+        marginTop: 80, // Change this color as needed
     },
     optionText: {
         fontSize: 16,
+        paddingTop: 30,
+    },
+    bottomText: {
+        fontSize: 16,
+        paddingTop: 30,
     },
     modalView: {
         flex: 1,
         justifyContent: 'flex-end',
     },
     modalContent: {
-        height: '75%',
+        height: '100%',
         backgroundColor: 'white',
         padding: 20,
     },
     questionText: {
-        fontSize: 18,
-        marginBottom: 20,
+        fontSize: 25,
+        marginTop: 60,
+        marginLeft: 20,
     },
     optionText: {
-        fontSize: 16,
-        marginBottom: 10,
+        fontSize: 20,
+        marginLeft: 80,
+        marginTop: 70,
+        borderColor: 'blue',
+
     },
     navigationButtons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 20,
+        marginTop: 100,
     },
+    horizontalBox: {
+        flexDirection: 'row', // Align children in a row
+        alignItems: 'center', // Center items vertically in the container
+        backgroundColor: '#D1E6E6', // Background color of the box
+        padding: 10, // Padding inside the box
+        marginTop: 20,
+        width: 330,
+        height: 50,
+        zIndex: 1,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+         // Margin top for spacing from the above element
+      },
+      blackBox: {
+        flexDirection: 'row', // Align children in a row
+        alignItems: 'center', // Center items vertically in the container
+        backgroundColor: '#273B4A', // Background color of the box
+        padding: 10, // Padding inside the box
+        marginTop: -44,
+        zIndex:0,
+        width: 330,
+        height: 50,
+    
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+         // Margin top for spacing from the above element
+      },
+      boxImage: {
+        width: 100, // Width of the image
+        height: 100, // Height of the image// Margin right for spacing between image and text
+      },
 });

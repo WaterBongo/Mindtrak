@@ -2,6 +2,8 @@ import * as React from 'react';
 import { View, TouchableOpacity, Image, Modal, Text, TextInput, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QRCode from 'react-native-qrcode-svg';
+import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+
 export default function Survey({ navigation }) {
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isVisible, setIsVisible] = React.useState(false);
@@ -23,6 +25,14 @@ export default function Survey({ navigation }) {
         setCode('');
     };
 
+    let [fontsLoaded] = useFonts({
+        Poppins_400Regular,
+        Poppins_500Medium,
+        Poppins_700Bold,
+      });
+      if (!fontsLoaded) {
+        return <Text>Loading...</Text>
+      } else {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             {/* Button to open the form */}
@@ -46,19 +56,19 @@ export default function Survey({ navigation }) {
                         placeholder="Enter Name"
                         value={name}
                         onChangeText={setName}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' , fontFamily: 'Poppins_500Medium',}}
                     />
                     <TextInput
                         placeholder="Enter Date"
                         value={date}
                         onChangeText={setDate}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%', fontFamily: 'Poppins_500Medium',}}
                     />
                     <TextInput
                         placeholder="Enter 6 digit code"
                         value={code}
                         onChangeText={setCode}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' , fontFamily: 'Poppins_500Medium',}}
                     />
                     <Button title="Create" onPress={handleSubmit} />
                     <Button title="Close" onPress={() => setModalVisible(!modalVisible)} />
@@ -81,4 +91,5 @@ export default function Survey({ navigation }) {
             ))}
         </View>
     );
+}
 }

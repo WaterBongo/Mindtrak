@@ -1,7 +1,7 @@
-import { Poppins_500Medium } from '@expo-google-fonts/poppins';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, TextInput, Button, StyleSheet, Modal, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 
 export default function Survey() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -17,7 +17,14 @@ export default function Survey() {
         setInput3('');
         setModalVisible(false);
     };
-
+    let [fontsLoaded] = useFonts({
+        Poppins_400Regular,
+        Poppins_500Medium,
+        Poppins_700Bold,
+      });
+      if (!fontsLoaded) {
+        return <Text>Loading...</Text>
+      } else {
     return (
         <View style={styles.container}>
             {/* Text above the plus icon */}
@@ -46,24 +53,24 @@ export default function Survey() {
                 }}>
                 <View style={styles.modalView}>
                     <TextInput
-                        placeholder="Date"
+                        placeholder="Input 1"
                         value={input1}
                         onChangeText={setInput1}
                         style={styles.input1}
                     />
                     <TextInput
-                        placeholder="Title"
+                        placeholder="Input 2"
                         value={input2}
                         onChangeText={setInput2}
                         style={styles.input2}
                     />
                     <TextInput
-                        placeholder="Start writing..."
+                        placeholder="Input 3"
                         value={input3}
                         onChangeText={setInput3}
                         style={styles.input3}
                     />
-                    <Button title="Submit" onPress={handleSubmit} style={styles.done}/>
+                    <Button title="Submit" onPress={handleSubmit} />
                 </View>
             </Modal>
 
@@ -78,6 +85,7 @@ export default function Survey() {
         </View>
     );
 }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -86,33 +94,30 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
     },
-
-    done: {
-        paddingTop: 10,
-        fontSize: 20,
-        color: '#9AC3C9',
-    },
-
     addText: {
         position: 'absolute',
         top: 40,
         left: 20,
         fontSize: 28,
+        fontFamily: 'Poppins_500Medium',
     },
     titleText: {
         paddingBottom: 40,
         top: 0, 
         paddingTop: 0,
         fontSize: 18,
+        fontFamily: 'Poppins_500Medium',
     },
     journalstartText: {
         paddingTop: 10,
         fontSize: 20,
         color: '#04406C',
+        fontFamily: 'Poppins_500Medium',
     },
     greenText: {
         fontSize: 15,
         color: '#365757',
+        fontFamily: 'Poppins_500Medium',
     },
     addButton: {
         marginBottom: 100, // Adjust as needed
@@ -137,10 +142,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         width: '100%',
-        borderColor: '#F2F2F2',
+        borderColor: 'black',
         fontSize: 20,
-        color: '#04406C',
-
+        color: 'black',
+        fontFamily: 'Poppins_500Medium',
+        
     },
     input2: {
         height: 40,
@@ -148,9 +154,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         width: '100%',
-        borderColor: '#F2F2F2',
+        borderColor: 'black',
         fontSize: 15,
-        color: '#365757',
+        color: 'black',
+        fontFamily: 'Poppins_500Medium',
         
     },
     input3: {
@@ -159,7 +166,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         width: '100%',
-        borderColor: '#F2F2F2',
+        borderColor: 'black',
+        color: 'black',
+        fontFamily: 'Poppins_500Medium',
         
     },
     recommendationBox: {
@@ -167,12 +176,6 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderColor: '#9AC3C9',
-        color: '#04406C',
-        tintColor: '#9AC3C9',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
     },
     boxImage: {
         width: 50, // Width of the image

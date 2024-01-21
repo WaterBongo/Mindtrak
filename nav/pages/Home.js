@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_500Medium",
   },
   helloText: {
-    fontSize: 30,
+    fontSize: 28,
     fontFamily: 'Poppins_500Medium',
   },
   moodText: {

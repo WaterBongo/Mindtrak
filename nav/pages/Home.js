@@ -27,7 +27,7 @@ export default function Home() {
         />
         <Text style={styles.boxText}>   Happy!</Text>
       </View>
-      <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium' }]}>Recommendations</Text>
+      <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium'}]}>Recommendations</Text>
      
     </View>
   );

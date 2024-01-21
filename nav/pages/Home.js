@@ -23,6 +23,11 @@ export default function Home() {
   useEffect(() => {
     get_Reccs(); // Call this function when the component mounts
   }, []); // Empty dependency array means it only runs once after the initial render
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_700Bold,
+  });
 
   const createBox = (firstxt, secondtxt) => {
     return (
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
   },
   customBoxText: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: 12,
+    fontSize: 10,
     color: '#333',
     paddingTop: 5, // Add space between the two texts
   },

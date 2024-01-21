@@ -43,7 +43,7 @@ export default function Home() {
         />
       <Text style={[styles.moodText, { fontFamily: 'Poppins_500Medium' }]}>Heart rate levels are measured by the resting bpm and stress levels are determined by a combination of the AI processed recommendations from the journals along with daily mood logs.</Text>
       {/* <PickFileButton /> */}
-      <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Sleep</Text>
+      <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>                     Sleep</Text>
         <Image 
           source={require('./assets/sleephr.png')} // Replace with your image path
           style={styles.boxImage}

@@ -241,9 +241,13 @@ const styles = StyleSheet.create({
         
     },
     recommendationBox: {
+        width: 338,
+        height: 127,
+        borderRadius: 25,
         margin: 10,
         padding: 10,
         borderWidth: 1,
+        backgroundColor: '#F2F2F2',
         borderColor: '#9AC3C9',
     },
     boxImage: {

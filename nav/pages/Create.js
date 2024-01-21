@@ -80,10 +80,10 @@ export default function Survey() {
                         numberOfLines = {20}
                         multiline = {true}
                     />
-                    {/* <Button title="Submit" onPress={handleSubmit} style={style.submit}/> */}
-                        <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
-                            <Ionicons name="checkmark-circle-outline" size={22} color="black" />
-                        </TouchableOpacity>
+                    <Button title="Submit" onPress={handleSubmit} style={style.submit}/>
+                        {/* <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
+                            <Ionicons name="checkmark-circle-outline" size={24} color="black" />
+                        </TouchableOpacity> */}
                 
                 </View>
             </Modal>
@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'black',
         fontFamily: 'Poppins_500Medium',
-        outlineStyle: 'none',
     },
     input2: {
         height: 40,
@@ -203,7 +202,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: 'black',
         fontFamily: 'Poppins_500Medium',
-        outlineStyle: 'none',
         
     },
     input3: {

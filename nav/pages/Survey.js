@@ -43,6 +43,7 @@ export default function Survey() {
         const isOptionSelected = (questionIndex, optionIndex) => {
             return selectedOptions[questionIndex] === optionIndex;
         };
+    
         return (
             <View style={styles.modalContent}>
                 <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
@@ -103,19 +104,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    modalView: {
-        flex: 1,
-        justifyContent: 'flex-end',
-    },
-    modalContent: {
-        height: '75%',
-        backgroundColor: 'white',
-        padding: 20,
-    },
-    questionText: {
-        fontSize: 18,
-        marginBottom: 20,
-    },
     optionButton: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -134,6 +122,19 @@ const styles = StyleSheet.create({
     },
     optionText: {
         fontSize: 16,
+    },
+    modalView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    modalContent: {
+        height: '75%',
+        backgroundColor: 'white',
+        padding: 20,
+    },
+    questionText: {
+        fontSize: 18,
+        marginBottom: 20,
     },
     optionText: {
         fontSize: 16,

@@ -1,83 +1,109 @@
-import * as React from 'react';
-import { View, TouchableOpacity, Image, Modal, Text, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, TextInput, Button, StyleSheet, Modal } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import QRCode from 'react-native-qrcode-svg';
-export default function Create({ navigation }) {
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [isVisible, setIsVisible] = React.useState(false);
-    const [name, setName] = React.useState('');
-    const [date, setDate] = React.useState(''); // New state variable for date
-    const [code, setCode] = React.useState('');
-    const [submittedForms, setSubmittedForms] = React.useState([]);
 
-    const toggleResponses = () => {
-        setIsVisible(!isVisible);
-    }
+export default function Survey() {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [input1, setInput1] = useState('');
+    const [input2, setInput2] = useState('');
+    const [input3, setInput3] = useState('');
+    const [recommendations, setRecommendations] = useState([]);
 
-    // Function to handle form submission
     const handleSubmit = () => {
-        setSubmittedForms([...submittedForms, { name, date, code }]);
+        setRecommendations([...recommendations, { input1, input2, input3 }]);
+        setInput1('');
+        setInput2('');
+        setInput3('');
         setModalVisible(false);
-        setName(''); // Reset the name input
-        setDate(''); // Reset the date input
-        setCode('');
     };
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {/* Button to open the form */}
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Ionicons name="add-circle-outline" size={64}></Ionicons>
-            </TouchableOpacity>
+        <View style={styles.container}>
+            {/* Text above the plus icon */}
+            <Text style={styles.addText}>Journal</Text>
 
-            {/* Modal for the registration form */}
+            {/* Button to open the form */}
+            <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+                <Ionicons name="add-circle-outline" size={64} />
+            </TouchableOpacity>
+            <Text>Journals</Text>
+            {/* Modal for the input form */}
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={{ marginTop: 50, marginHorizontal: 20, backgroundColor: 'white', padding: 35, alignItems: 'center', elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84 }}>
-                    <Text style={{ marginBottom: 15, textAlign: 'center' }}>Create Form</Text>
+                }}>
+                <View style={styles.modalView}>
                     <TextInput
-                        placeholder="Enter Name"
-                        value={name}
-                        onChangeText={setName}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        placeholder="Input 1"
+                        value={input1}
+                        onChangeText={setInput1}
+                        style={styles.input}
                     />
                     <TextInput
-                        placeholder="Enter Date"
-                        value={date}
-                        onChangeText={setDate}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        placeholder="Input 2"
+                        value={input2}
+                        onChangeText={setInput2}
+                        style={styles.input}
                     />
                     <TextInput
-                        placeholder="Enter 6 digit code"
-                        value={code}
-                        onChangeText={setCode}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
+                        placeholder="Input 3"
+                        value={input3}
+                        onChangeText={setInput3}
+                        style={styles.input}
                     />
-                    <Button title="Create" onPress={handleSubmit} />
-                    <Button title="Close" onPress={() => setModalVisible(!modalVisible)} />
+                    <Button title="Submit" onPress={handleSubmit} />
                 </View>
             </Modal>
 
-            {/* Displaying submitted forms */}
-            {submittedForms.map((form, index) => (
-                <View key={index} style={{ margin: 10, padding: 10, borderWidth: 1, borderColor: '#ddd' }}>
-                    <Text>Name: {form.name}</Text>
-                    <Text>Date: {form.date}</Text>
-                    <Text>Six digit code: {form.code}</Text>
-                    <QRCode value={form.name + form.date}/>
-                    <Button title="Show Responses" onPress={toggleResponses} />
-                    <Text>Responses:</Text>
-                    {isVisible && <Text>Name: [name text]]</Text>}
-                    {isVisible && <Text>Grade: [grade text]</Text>}
-                    {isVisible && <Text>Email: [email text]</Text>}
+            {/* Displaying recommendations */}
+            {recommendations.map((item, index) => (
+                <View key={index} style={styles.recommendationBox}>
+                    <Text>Input 1: {item.input1}</Text>
+                    <Text>Input 2: {item.input2}</Text>
+                    <Text>Input 3: {item.input3}</Text>
                 </View>
             ))}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    addText: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        fontSize: 18,
+    },
+    addButton: {
+        marginBottom: 100, // Adjust as needed
+    },
+    modalView: {
+        marginTop: 50,
+        marginHorizontal: 20,
+        backgroundColor: 'white',
+        padding: 35,
+        alignItems: 'center',
+        elevation: 5,
+    },
+    input: {
+        height: 40,
+        marginBottom: 10,
+        borderWidth: 1,
+        padding: 10,
+        width: '100%',
+    },
+    recommendationBox: {
+        margin: 10,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ddd',
+    },
+});

@@ -26,6 +26,7 @@ export default function Survey({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             {/* Button to open the form */}
+            <Text>Hello!</Text>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Ionicons name="add-circle-outline" size={64}></Ionicons>
             </TouchableOpacity>

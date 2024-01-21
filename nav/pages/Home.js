@@ -6,6 +6,19 @@ import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from
 export default function Home() {
   // Return the View
 
+
+    async function get_Reccs() {
+  // Default options are marked with *
+  const response = await fetch("http://100.73.7.50:8080/getdata", {
+    method: "GET", // *GET, POST, PUT, DELETE, etc.
+  });
+  //print out the response
+  
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
+
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -14,15 +27,17 @@ export default function Home() {
   if (!fontsLoaded) {
     return <Text>Loading...</Text>
   } else {
-  const createBox = () => {
+  const createBox = (firstxt,secondtxt) => {
     return (
       <View style={styles.customBox}>
-        <Text style={styles.customBoxText}>First Text</Text>
-        <Text style={styles.customBoxText}>Second Text</Text>
+        <Text style={styles.customBoxText}>{firstxt}</Text>
+        <Text style={styles.customBoxText}>{secondtxt}</Text>
       </View>
     );
   };
-
+  
+//create new boxes for all of them TODO
+  createBox("hehe","haha")
   return (
     <View style={styles.container}>
       <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Hello!</Text>
@@ -37,7 +52,8 @@ export default function Home() {
         <Text style={styles.boxText}>   Happy!</Text>
       </View>
       <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium'}]}>Recommendations</Text>
-        {createBox()}
+      {createBox("hehe","haa")}
+
     </View>
   );
 }

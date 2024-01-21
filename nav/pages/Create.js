@@ -41,9 +41,6 @@ export default function Survey() {
         setInput3('');
         setModalVisible(false);
         const newEntry = { input1, input2, input3 };
-        const existingEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-        existingEntries.push(newEntry);
-        localStorage.setItem('journalEntries', JSON.stringify(existingEntries));
         postData("heheaw").then((data) => {
   console.log(data); // JSON data parsed by `data.json()` call
 });

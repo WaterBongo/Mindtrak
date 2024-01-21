@@ -15,25 +15,25 @@ export default function Survey() {
 
     async function postData(text_journal) {
   // Default options are marked with *
-  const response = await fetch("http://100.73.7.50/journal_submisson", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  const response = await fetch("http://100.73.7.50:8080/journal_submisson", {
+    method: "GET", // *GET, POST, PUT, DELETE, etc.
   });
+  //print out the response
+  
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
 
     const handleSubmit = () => {
+        console.log("hi!")
         setRecommendations([...recommendations, { input1, input2, input3 }]);
         setInput1('');
         setInput2('');
         setInput3('');
         setModalVisible(false);
-        postData()
-
+        postData("heheaw").then((data) => {
+  console.log(data); // JSON data parsed by `data.json()` call
+});
     };
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,

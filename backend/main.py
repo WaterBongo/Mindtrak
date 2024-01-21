@@ -7,10 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-            
-    gen_random_4uuids()
-    print(journals)
-    return 'Hello, World!'
+    return {"test":"yapping"}
 
 user ={}
 journals = {
@@ -66,14 +63,12 @@ def examine_results():
 
 
 
-@app.route("/journal_submisson",methods=["POST"])
+@app.route("/journal_submisson",methods=["GET"])
 def journal_submiss():
-    data = request.get_json()
     #sample data {"text":"Amazing something about life"}
-    journal = data["text"]
     journal_id = str(uuid.uuid4())
-    stress_help=  ask_ollama_engine(journal)
-    journals[journal_id] = {"text":journal,"advice" :stress_help}
+    stress_help = ask_ollama_engine(":3 1337")
+    journals["0ce7af1e-a335-4d6a-b2c7-e2c8c61e1a1e"] = {"text":"journal","advice" :stress_help}
     print(stress_help)
     return {"journal_id":journal_id,"advice":stress_help["response"]}
     #return the journal id

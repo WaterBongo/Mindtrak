@@ -26,7 +26,7 @@ export default function Survey() {
         return <Text>Loading...</Text>
       } else {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} multiline = {true}>
             {/* Text above the plus icon */}
             <Text style={styles.addText}>Journal</Text>
 
@@ -53,22 +53,27 @@ export default function Survey() {
                 }}>
                 <View style={styles.modalView}>
                     <TextInput
-                        placeholder="Input 1"
+                        placeholder="Enter Date"
+                        placeholderTextColor="#8C8C8C"
                         value={input1}
                         onChangeText={setInput1}
                         style={styles.input1}
                     />
                     <TextInput
-                        placeholder="Input 2"
+                        placeholder="Enter Title"
+                        placeholderTextColor="#8C8C8C"
                         value={input2}
                         onChangeText={setInput2}
                         style={styles.input2}
                     />
                     <TextInput
-                        placeholder="Input 3"
+                        placeholder="write something..."
+                        placeholderTextColor="#8C8C8C"
                         value={input3}
                         onChangeText={setInput3}
                         style={styles.input3}
+                        numberOfLines = {20}
+                        multiline = {true}
                     />
                     <Button title="Submit" onPress={handleSubmit} />
                 </View>
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
         marginBottom: 100, // Adjust as needed
     },
     modalView: {
-        marginTop: 50,
+        marginTop: 100,
         marginHorizontal: 20,
         backgroundColor: '#F2F2F2',
         padding: 35,
@@ -135,40 +140,57 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
+        placeholderTextColor: '#fff',
     },
     input1: {
         height: 40,
-        marginBottom: 10,
+        bottom: 20,
+        marginBottom: -37,
+        marginRight: 63,
         borderWidth: 1,
         padding: 10,
         width: '100%',
-        borderColor: 'black',
-        fontSize: 20,
+        borderColor: '#F2F2F2',
+        borderBottomColor: 'transparent',
+        fontSize: 18,
         color: 'black',
         fontFamily: 'Poppins_500Medium',
-        
+        outlineStyle: 'none',
     },
     input2: {
         height: 40,
-        marginBottom: 10,
+        marginTop: 3,
+        marginRight: 63,
         borderWidth: 1,
         padding: 10,
         width: '100%',
-        borderColor: 'black',
+        borderColor: '#F2F2F2',
+        borderBottomColor: 'transparent',
+        borderTopColor: 'transparent',
         fontSize: 15,
         color: 'black',
         fontFamily: 'Poppins_500Medium',
+        outlineStyle: 'none',
         
     },
     input3: {
-        height: 40,
-        marginBottom: 10,
+        height: 320,
+        marginBottom: 100,
+        marginRight: 5,
         borderWidth: 1,
+        // center the text to the box
+
+        textAlignVertical: 'top',
         padding: 10,
-        width: '100%',
-        borderColor: 'black',
+        paddingRight: 10,
+        fontSize: 13,
+        width: 330,
+        borderColor: '#F2F2F2',
+        borderBottomColor: 'transparent',
+        borderTopColor: 'transparent',
         color: 'black',
         fontFamily: 'Poppins_500Medium',
+        textAlignVertical: 'top',
         
     },
     recommendationBox: {

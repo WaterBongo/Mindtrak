@@ -6,10 +6,12 @@ import { Image } from 'react-native';
 import Home from './pages/Home';
 import Create from './pages/Create';
 import Survey from './pages/Survey';
+import Health from './pages/Health';
 
 const homeName = 'Home';
 const createName = 'Create';
 const surveyName = 'Survey';
+const healthName = 'Health';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +33,9 @@ export default function MainContainer() {
                         }
                         else if (rn === surveyName) {
                             image = focused ? require('./assets/surveyfocused.png') : require('./assets/survey.png');
+                        }
+                        else if (rn === healthName) {
+                            image = focused ? require('./assets/healthfocused.png') : require('./assets/health.png');
                         }
 
                         return <Image source={image} style={{ width: 50, height: 50 }} />;
@@ -54,6 +59,7 @@ export default function MainContainer() {
                 <Tab.Screen name={homeName} component={Home}/>
                 <Tab.Screen name={createName} component={Create}/>
                 <Tab.Screen name={surveyName} component={Survey}/>
+                <Tab.Screen name={healthName} component={Health}/>
 
             </Tab.Navigator>
         </NavigationContainer>

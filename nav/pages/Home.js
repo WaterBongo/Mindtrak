@@ -1,33 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 
-
 export default function Home() {
-  // Return the View
+  const [advice, setAdvice] = useState(''); // State variable to store the advice text
 
+  async function get_Reccs() {
+    // Default options are marked with *
+    const intervalId = setInterval(async () => {
+      const response = await fetch("http://100.73.7.50:8080/getadvice/0215-4381-5327-1564", {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+      });
+      const data = await response.json(); // parses JSON response into native JavaScript objects
+      if (data.ready) {
+        clearInterval(intervalId);
+        const data_Advice = data.advice;
+        setAdvice(data_Advice); // Update the state with the advice data
+      }
+    }, 1000); // Set the interval time in milliseconds
+  };
 
-    async function get_Reccs() {
-  // Default options are marked with *
-  const response = await fetch("http://100.73.7.50:8080/getdata", {
-    method: "GET", // *GET, POST, PUT, DELETE, etc.
-  });
-  //print out the response
-  
-  return response.json(); // parses JSON response into native JavaScript objects
-}
+  useEffect(() => {
+    get_Reccs(); // Call this function when the component mounts
+  }, []); // Empty dependency array means it only runs once after the initial render
 
-
-
-  let [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_700Bold,
-  });
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>
-  } else {
-  const createBox = (firstxt,secondtxt) => {
+  const createBox = (firstxt, secondtxt) => {
     return (
       <View style={styles.customBox}>
         <Text style={styles.customBoxText}>{firstxt}</Text>
@@ -35,9 +32,8 @@ export default function Home() {
       </View>
     );
   };
-  
+get_Reccs()
 //create new boxes for all of them TODO
-  createBox("hehe","haha")
   return (
     <View style={styles.container}>
       <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Hello!</Text>
@@ -52,12 +48,12 @@ export default function Home() {
         <Text style={styles.boxText}>   Happy!</Text>
       </View>
       <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium'}]}>Recommendations</Text>
-      {createBox("hehe","haa")}
-
-    </View>
+      {createBox("Set Boundaries: Politely but firmly let your friend know that their behavior is not helpful and is causing undue stress. Explain how you and your teammates prefer to work and that constant pressure is counterproductive.\n\nTeam Intervention: If the behavior continues, consider a team discussion. Sometimes peer pressure can be more effective than one-on-one conversations. The team can set expectations for everyone's behavior.\n\nDesignate a Mediator: If direct confrontation is challenging, perhaps a team leader or another neutral party could mediate the situation and relay concerns to the problematic friend.\n\nFocus on Your Work: Concentrate on the tasks at hand and try to block out distractions. Remember that you have control over your own actions and responses, even if you can't control your friend's behavior.\n\nTake Breaks: Make sure to take short breaks to clear your mind, especially when you feel tension rising. A quick walk, some deep breathing, or a moment of quiet can help reset your focus.\n\nLong-term Strategies:\n\nDiscuss After the Event: Once the competition is over, it might be beneficial to have a conversation with your friend about their behavior and its impact on you and the team.\n\nTeam Debriefing: Having a post-competition meeting to discuss what worked and what didn't can help address any interpersonal issues and improve team dynamics for future events.\n\nBuild a Supportive Team Culture: For future competitions, establish team norms and support mechanisms. This could include how you deal with stress collectively and how you'll communicate under pressure.\n\nStress Reduction Techniques:\n\nMindfulness and Meditation: Practice mindfulness meditation to stay present and reduce anxiety. Apps like Headspace or Calm can guide you through short meditation sessions tailored to stress relief.\n\nPhysical Activity: Regular exercise can significantly reduce stress. Even short bursts of activity like walking or stretching can make a difference.\n\nProper Nutrition and Sleep: Ensure that you are eating nutritiously and getting enough sleep, as physical well-being greatly affects stress levels.\n\nHobbies and Interests: Engage in hobbies or activities you enjoy outside of math competitions to give your mind a break from the stress of competition.\n\nTime Management: Develop good time management skills so you can work on problems efficiently without rushing. Techniques like the Pomodoro Technique can help keep you focused and stress-free while working.\n\nJournaling: Writing down your thoughts and feelings can be a helpful way to process stress and gain perspective on the situation.","heheaw")}
+      {advice !== '' && createBox(advice, "")} 
+      </View>
   );
 }
-}
+
 const styles = StyleSheet.create({
   
   container: {
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
   },
   customBoxText: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: 17,
+    fontSize: 12,
     color: '#333',
     paddingTop: 5, // Add space between the two texts
   },

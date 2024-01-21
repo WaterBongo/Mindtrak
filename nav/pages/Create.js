@@ -25,12 +25,23 @@ export default function Survey() {
     async function postData(text_journal) {
   // Default options are marked with *
   const response = await fetch("http://100.73.7.50:8080/journal_submisson", {
-    method: "GET", // *GET, POST, PUT, DELETE, etc.
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: text_journal,
+    }), // body data type must match "Content-Type" header
   });
-  //print out the response
+
   
   return response.json(); // parses JSON response into native JavaScript objects
 }
+    async function send_to_db(text) {
+
+    const response = await fetch("http:///100.73.7.50:8080/journal_submisson",)
+    }
+  //print out the response
 
 
     const handleSubmit = () => {
@@ -41,7 +52,8 @@ export default function Survey() {
         setInput3('');
         setModalVisible(false);
         const newEntry = { input1, input2, input3 };
-        postData("heheaw").then((data) => {
+        console.log(input3)
+        postData(input3).then((data) => {
   console.log(data); // JSON data parsed by `data.json()` call
 });
     };
@@ -115,6 +127,10 @@ export default function Survey() {
             </Modal>
 
             {/* Displaying recommendations */}
+                <View style={styles.recommendationBox}>
+                    <Text>For the last 2 days I’ve had a math competition, and one of my so called friends is being crazily buggy, and he happens to be pesking and sort of harassing me and the other teammates alot to solve the math questions faster, even though he hasn't made any contribution to solve any math questions</Text>
+                </View>
+            
             {recommendations.map((item, index) => (
                 <View key={index} style={styles.recommendationBox}>
                     <Text>{item.input1}</Text>

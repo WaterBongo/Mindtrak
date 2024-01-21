@@ -1,3 +1,4 @@
+import { Poppins_500Medium } from '@expo-google-fonts/poppins';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, TextInput, Button, StyleSheet, Modal, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -45,24 +46,24 @@ export default function Survey() {
                 }}>
                 <View style={styles.modalView}>
                     <TextInput
-                        placeholder="Input 1"
+                        placeholder="Date"
                         value={input1}
                         onChangeText={setInput1}
                         style={styles.input1}
                     />
                     <TextInput
-                        placeholder="Input 2"
+                        placeholder="Title"
                         value={input2}
                         onChangeText={setInput2}
                         style={styles.input2}
                     />
                     <TextInput
-                        placeholder="Input 3"
+                        placeholder="Start writing..."
                         value={input3}
                         onChangeText={setInput3}
                         style={styles.input3}
                     />
-                    <Button title="Submit" onPress={handleSubmit} />
+                    <Button title="Submit" onPress={handleSubmit} style={styles.done}/>
                 </View>
             </Modal>
 
@@ -85,6 +86,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
     },
+
+    done: {
+        paddingTop: 10,
+        fontSize: 20,
+        color: '#9AC3C9',
+    },
+
     addText: {
         position: 'absolute',
         top: 40,
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
         borderColor: '#F2F2F2',
         fontSize: 20,
         color: '#04406C',
-        
+
     },
     input2: {
         height: 40,
@@ -159,6 +167,12 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderColor: '#9AC3C9',
+        color: '#04406C',
+        tintColor: '#9AC3C9',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
     boxImage: {
         width: 50, // Width of the image

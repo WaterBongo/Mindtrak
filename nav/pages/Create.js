@@ -12,12 +12,28 @@ export default function Survey() {
     const [input3, setInput3] = useState('');
     const [recommendations, setRecommendations] = useState([]);
 
+
+    async function postData(text_journal) {
+  // Default options are marked with *
+  const response = await fetch("http://100.73.7.50/journal_submisson", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
     const handleSubmit = () => {
         setRecommendations([...recommendations, { input1, input2, input3 }]);
         setInput1('');
         setInput2('');
         setInput3('');
         setModalVisible(false);
+        postData()
+
     };
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,

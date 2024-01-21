@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, TextInput, Button, StyleSheet, Modal, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import { height } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
+import { style } from 'deprecated-react-native-prop-types/DeprecatedViewPropTypes';
 
 export default function Survey() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -52,6 +54,9 @@ export default function Survey() {
                     setModalVisible(!modalVisible);
                 }}>
                 <View style={styles.modalView}>
+                <TouchableOpacity style={styles.backbutton} onPress={() => setModalVisible(false)}>
+                <Ionicons name="close-outline" size={64} />
+                </TouchableOpacity>
                     <TextInput
                         placeholder="Enter Date"
                         placeholderTextColor="#8C8C8C"
@@ -75,7 +80,11 @@ export default function Survey() {
                         numberOfLines = {20}
                         multiline = {true}
                     />
-                    <Button title="Submit" onPress={handleSubmit} />
+                    {/* <Button title="Submit" onPress={handleSubmit} style={style.submit}/> */}
+                        <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
+                            <Ionicons name="checkmark-circle-outline" size={24} color="black" />
+                        </TouchableOpacity>
+                
                 </View>
             </Modal>
 
@@ -93,6 +102,30 @@ export default function Survey() {
 }
 
 const styles = StyleSheet.create({
+    submit: {
+        marginBottom: 15, // Adjust as needed
+        marginTop: -5,
+        marginLeft: 245,
+        zIndex: -200,
+        right: -25,
+        position: 'absolute',
+        padding: 10,
+        width: 100,
+        height: 100,
+        transform: [{ scale: 1.6}],
+    },
+    backbutton: {
+        marginBottom: 15, // Adjust as needed
+        marginTop: -5,
+        marginLeft: 245,
+        zIndex: -200,
+        right: -25,
+        position: 'absolute',
+        padding: 10,
+        width: 100,
+        height: 100,
+        transform: [{ scale: 0.6}],
+    },
     container: {
         flex: 1,
         alignItems: 'center',

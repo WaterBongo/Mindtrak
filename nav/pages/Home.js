@@ -1,12 +1,23 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
+import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
 
 export default function Home() {
   // Return the View
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_700Bold,
+  });
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>
+  } else {
+  
+
   return (
     <View style={styles.container}>
-      <Text style={styles.helloText}>Hello!</Text>
-      <Text style={styles.moodText}>Your average mood is...</Text>
+      <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Hello!</Text>
+      <Text style={[styles.moodText, { fontFamily: 'Poppins_500Medium' }]}>Your average mood is...</Text>
 
       {/* Horizontal box with image and text */}
       <View style={styles.horizontalBox}>
@@ -16,12 +27,12 @@ export default function Home() {
         />
         <Text style={styles.boxText}>   Happy!</Text>
       </View>
-      <Text style={styles.recommendationsText}>Recommendations</Text>
+      <Text style={[styles.recommendationsText, { fontFamily: 'Poppins_500Medium' }]}>Recommendations</Text>
      
     </View>
   );
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -30,9 +41,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 60,
     paddingLeft: 20,
+    fontFamily: "Poppins_500Medium",
   },
   helloText: {
     fontSize: 30,
+    fontFamily: 'Poppins_500Medium',
   },
   moodText: {
     paddingTop: 10,
@@ -64,6 +77,7 @@ const styles = StyleSheet.create({
   },
   boxText: {
     fontSize: 30,
+    fontFamily: 'Poppins_500Medium',
     // Add any other styling for the text here
   },
   recText: {

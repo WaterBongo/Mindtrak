@@ -99,10 +99,15 @@ const styles = StyleSheet.create({
     width: 380, // Width of the image
     height: 285, // Height of the image
     marginRight: 0, // Margin right for spacing between image and text
+
   },
   boxText: {
     fontSize: 30,
     fontFamily: 'Poppins_500Medium',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
     // Add any other styling for the text here
   },
   recText: {

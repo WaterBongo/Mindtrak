@@ -1,84 +1,147 @@
-import * as React from 'react';
-import { View, TouchableOpacity, Image, Modal, Text, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, Modal, StyleSheet, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import QRCode from 'react-native-qrcode-svg';
-export default function Survey({ navigation }) {
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [isVisible, setIsVisible] = React.useState(false);
-    const [name, setName] = React.useState('');
-    const [date, setDate] = React.useState(''); // New state variable for date
-    const [code, setCode] = React.useState('');
-    const [submittedForms, setSubmittedForms] = React.useState([]);
 
-    const toggleResponses = () => {
-        setIsVisible(!isVisible);
-    }
+export default function Survey() {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [surveyDone, setSurveyDone] = useState(false);
 
-    // Function to handle form submission
-    const handleSubmit = () => {
-        setSubmittedForms([...submittedForms, { name, date, code }]);
-        setModalVisible(false);
-        setName(''); // Reset the name input
-        setDate(''); // Reset the date input
-        setCode('');
+    // Sample questions - replace with your actual questions
+    const questions = [
+        { question: "Question 1", options: ["Option 1", "Option 2", "Option 3"] },
+        { question: "Question 2", options: ["Option 1", "Option 2", "Option 3"] },
+        // Add more questions as needed
+    ];
+
+    const handleNextQuestion = () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            // Submit the survey
+            setSurveyDone(true);
+            setModalVisible(false);
+        }
+    };
+
+    const handlePreviousQuestion = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+        }
+    };
+
+    const SurveyModalContent = () => {
+        const [selectedOptions, setSelectedOptions] = useState({});
+    
+        const selectOption = (questionIndex, optionIndex) => {
+            setSelectedOptions({
+                ...selectedOptions,
+                [questionIndex]: optionIndex,
+            });
+        };
+    
+        const isOptionSelected = (questionIndex, optionIndex) => {
+            return selectedOptions[questionIndex] === optionIndex;
+        };
+        return (
+            <View style={styles.modalContent}>
+                <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
+                {/* Display options here */}
+                {questions[currentQuestionIndex].options.map((option, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.optionButton}
+                        onPress={() => selectOption(currentQuestionIndex, index)}
+                    >
+                        <View style={[styles.circle, isOptionSelected(currentQuestionIndex, index) && styles.selectedCircle]} />
+                        <Text style={styles.optionText}>{option}</Text>
+                    </TouchableOpacity>
+                ))}
+                <View style={styles.navigationButtons}>
+                    <TouchableOpacity onPress={handlePreviousQuestion}>
+                        <Ionicons name="arrow-back-circle" size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleNextQuestion}>
+                        <Ionicons name="arrow-forward-circle" size={30} />
+                    </TouchableOpacity>
+                </View>
+                {currentQuestionIndex === questions.length - 1 && (
+                    <Button title="Submit" onPress={handleNextQuestion} />
+                )}
+            </View>
+        );
     };
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {/* Button to open the form */}
-            <Text>Hello!</Text>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Ionicons name="add-circle-outline" size={64}></Ionicons>
+        <View style={styles.container}>
+            <TouchableOpacity onPress={() => !surveyDone && setModalVisible(true)}>
+                <Text style={styles.startSurveyText}>Start Survey</Text>
             </TouchableOpacity>
+            {surveyDone && <Text>You can only do a survey once a day.</Text>}
 
-            {/* Modal for the registration form */}
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
+                onRequestClose={() => setModalVisible(!modalVisible)}
             >
-                <View style={{ marginTop: 50, marginHorizontal: 20, backgroundColor: 'white', padding: 35, alignItems: 'center', elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84 }}>
-                    <Text style={{ marginBottom: 15, textAlign: 'center' }}>Create Form</Text>
-                    <TextInput
-                        placeholder="Enter Name"
-                        value={name}
-                        onChangeText={setName}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
-                    />
-                    <TextInput
-                        placeholder="Enter Date"
-                        value={date}
-                        onChangeText={setDate}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
-                    />
-                    <TextInput
-                        placeholder="Enter 6 digit code"
-                        value={code}
-                        onChangeText={setCode}
-                        style={{ height: 40, marginBottom: 10, borderWidth: 1, padding: 10, width: '100%' }}
-                    />
-                    <Button title="Create" onPress={handleSubmit} />
-                    <Button title="Close" onPress={() => setModalVisible(!modalVisible)} />
+                <View style={styles.modalView}>
+                    <SurveyModalContent />
                 </View>
             </Modal>
-
-            {/* Displaying submitted forms */}
-            {submittedForms.map((form, index) => (
-                <View key={index} style={{ margin: 10, padding: 10, borderWidth: 1, borderColor: '#ddd' }}>
-                    <Text>Name: {form.name}</Text>
-                    <Text>Date: {form.date}</Text>
-                    <Text>Six digit code: {form.code}</Text>
-                    <QRCode value={form.name + form.date}/>
-                    <Button title="Show Responses" onPress={toggleResponses} />
-                    <Text>Responses:</Text>
-                    {isVisible && <Text>Name: [name text]]</Text>}
-                    {isVisible && <Text>Grade: [grade text]</Text>}
-                    {isVisible && <Text>Email: [email text]</Text>}
-                </View>
-            ))}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    startSurveyText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    modalView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    modalContent: {
+        height: '75%',
+        backgroundColor: 'white',
+        padding: 20,
+    },
+    questionText: {
+        fontSize: 18,
+        marginBottom: 20,
+    },
+    optionButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    circle: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'grey',
+        marginRight: 10,
+    },
+    selectedCircle: {
+        backgroundColor: 'blue', // Change this color as needed
+    },
+    optionText: {
+        fontSize: 16,
+    },
+    optionText: {
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    navigationButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 20,
+    },
+});

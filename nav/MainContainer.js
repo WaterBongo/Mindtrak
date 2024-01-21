@@ -25,15 +25,15 @@ export default function MainContainer() {
                         let rn = route.name;
 
                         if (rn === homeName) {
-                            image = focused ? require('./assets/homefocused.webp') : require('./assets/Home.webp');
+                            image = focused ? require('./assets/homefocused.png') : require('./assets/home.png');
                         } else if (rn === createName) {
-                            image = focused ? require('./assets/createfocused.webp') : require('./assets/create.webp');
+                            image = focused ? require('./assets/createfocused.png') : require('./assets/create.png');
                         }
                         else if (rn === surveyName) {
-                            image = focused ? require('./assets/surveyfocused.webp') : require('./assets/survey.webp');
+                            image = focused ? require('./assets/surveyfocused.png') : require('./assets/survey.png');
                         }
 
-                        return <Image source={image} style={{ width: 30, height: 30 }} />;
+                        return <Image source={image} style={{ width: 50, height: 50 }} />;
                     },
                     tabBarShowLabel: false,
                     tabBarStyle: {

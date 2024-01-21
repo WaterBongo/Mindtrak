@@ -11,14 +11,6 @@ def hello():
 
 user ={}
 journals = {
-    "0ce7af1e-a335-4d6a-b2c7-e2c8c61e1a1e": {
-        "advice": "Immediate Recommendations:\n1. Maintain Composure: First, remind yourself that failing or being questioned doesn't define your abilities. Everyone has their strengths and weaknesses. Take deep breathes, drink some water, and try to calm your nerves.\n2. Talk About it: If you feel comfortable, talk to someone who can comfort you, such as a teacher, coach, or different friend. They could offer advice or a shoulder to lean on.\n3. Give Space to Your Emotions: It's normal to feel upset, but remember not to let it consume you. Allow yourself some time alone to process your feelings. \n\nFuture Recommendations:\n1. Build Confidence: Confidence will help you handle such situations better. Regular practice especially in math as it is your area, will help you gain more confidence.\n2. Find a Support System: Surround yourself with individuals who motivate you, believe in you and bring positive energy. They will help you stay resilient in challenging situations.\n3. Self Affirmations: Regularly affirm yourself about your abilities. Self-love and self-validation are fundamental in building your confidence and resilience.\n\nStress-Reduction Tips:\n1. Regular Exercise: Regular physical activity helps in managing stress. Find a type of exercise you enjoy, and engage in it regularly.\n2. Meditation and Mindfulness: Practice focusing on your breath and being present in the moment without worrying about the past or future. \n3. Balanced Diet: Good nutrition has a profound effect on your mood and energy. So, eat a healthy balanced diet.\n4. Quality Sleep: Ensure you are getting enough quality sleep. It can improve your mood, productivity, and overall health.\n5. Socializing: Spend time with your loved ones. It can help you to reduce stress significantly.\n6. Hobbies: Engage in activities that make you happy and relaxed.",
-        "text": "Today i was attending a math competition and someone that I thought was my friend started questing my abilities and it really annoyed me that. "
-    },
-    "76b6e519-9c53-41fd-84ab-a3be186feeab":{
-        "advice": "\nSet Boundaries: Politely but firmly let your friend know that their behavior is not helpful and is causing undue stress. Explain how you and your teammates prefer to work and that constant pressure is counterproductive.\n\nTeam Intervention: If the behavior continues, consider a team discussion. Sometimes peer pressure can be more effective than one-on-one conversations. The team can set expectations for everyone's behavior.\n\nDesignate a Mediator: If direct confrontation is challenging, perhaps a team leader or another neutral party could mediate the situation and relay concerns to the problematic friend.\n\nFocus on Your Work: Concentrate on the tasks at hand and try to block out distractions. Remember that you have control over your own actions and responses, even if you can't control your friend's behavior.\n\nTake Breaks: Make sure to take short breaks to clear your mind, especially when you feel tension rising. A quick walk, some deep breathing, or a moment of quiet can help reset your focus.\n\nLong-term Strategies:\n\nDiscuss After the Event: Once the competition is over, it might be beneficial to have a conversation with your friend about their behavior and its impact on you and the team.\n\nTeam Debriefing: Having a post-competition meeting to discuss what worked and what didn't can help address any interpersonal issues and improve team dynamics for future events.\n\nBuild a Supportive Team Culture: For future competitions, establish team norms and support mechanisms. This could include how you deal with stress collectively and how you'll communicate under pressure.\n\nStress Reduction Techniques:\n\nMindfulness and Meditation: Practice mindfulness meditation to stay present and reduce anxiety. Apps like Headspace or Calm can guide you through short meditation sessions tailored to stress relief.\n\nPhysical Activity: Regular exercise can significantly reduce stress. Even short bursts of activity like walking or stretching can make a difference.\n\nProper Nutrition and Sleep: Ensure that you are eating nutritiously and getting enough sleep, as physical well-being greatly affects stress levels.\n\nHobbies and Interests: Engage in hobbies or activities you enjoy outside of math competitions to give your mind a break from the stress of competition.\n\nTime Management: Develop good time management skills so you can work on problems efficiently without rushing. Techniques like the Pomodoro Technique can help keep you focused and stress-free while working.\n\nJournaling: Writing down your thoughts and feelings can be a helpful way to process stress and gain perspective on the situation.\n",
-        "text": "For the last 2 days I’ve had a math competition, and one of my so called friends is being crazily buggy, and he happens to be pesking and sort of harassing me and the other teammates alot to solve the math questions faster, even though he hasn't made any contribution to solve any math questions. This person is stressing me out and I’m not sure what to do?"
-    }
 }
 
 
@@ -31,6 +23,11 @@ def ask_ollama_engine(context):
     print(r.json())
     return r.json()
 
+def ask_gpt(question):
+    e =openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": f"{question} give positive reinforcment to the user! talk alittle about the current scores"}])
+    return e['choices'][0]['message']['content']
 
 @app.route('/examine_results',methods=["POST"])
 def examine_results():
@@ -43,21 +40,26 @@ def examine_results():
 
 
 
-@app.route("/journal_submisson",methods=["GET"])
+@app.route("/journal_submisson",methods=["POST"])
 def journal_submiss():
     #sample data {"text":"Amazing something about life"}
-    journal_id = str(uuid.uuid4())
-    stress_help = ask_ollama_engine(":3 1337")
-    journals["0ce7af1e-a335-4d6a-b2c7-e2c8c61e1a1e"] = {"text":"journal","advice" :stress_help}
+    req_json = request.get_json()
+    
+    journal_id = "0215-4381-5327-1564"
+    stress_help = ask_gpt(req_json['text'])
+    journals[journal_id] = {"text":"journal","advice" :stress_help}
     print(stress_help)
-    return {"journal_id":journal_id,"advice":stress_help["response"]}
+    return {"journal_id":journal_id,"advice":stress_help}
     #return the journal id
 
 
  
 @app.route("/getadvice/<id>")
 def get_advice(id):
-    return journals[id]['advice']
+    if id in journals:
+        return {"advice": journals[id]['advice'], "ready": True}
+    else:
+        return {"ready": False}
 
 @app.route("/get/<id>")
 def get_journal(id):

@@ -1,6 +1,22 @@
-import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import React, { useCallback } from 'react';
+import { Text, View, StyleSheet, Image, Button } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import * as FileSystem from 'expo-file-system';
+
+const PickFileButton = () => {
+    const handlePress = useCallback(async () => {
+      const { cancelled, uri } = await FileSystem.getPickerAsync();
+      if (!cancelled) {
+        console.log('File selected:', uri);
+      }
+    }, []);
+  
+    return (
+      <View>
+        <Button title="Pick a file" onPress={handlePress} />
+      </View>
+    );
+  };
 
 export default function Home() {
   // Return the View
@@ -23,6 +39,7 @@ export default function Home() {
           style={styles.boxImage}
         />
       <Text style={[styles.moodText, { fontFamily: 'Poppins_500Medium' }]}>Heart rate levels are measured by the resting bpm and stress levels are determined by a combination of the AI processed recommendations from the journals along with daily mood logs.</Text>
+      {/* <PickFileButton /> */}
       <Text style={[styles.helloText, { fontFamily: 'Poppins_500Medium' }]}>Sleep</Text>
         <Image 
           source={require('./assets/sleephr.png')} // Replace with your image path

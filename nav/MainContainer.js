@@ -43,15 +43,16 @@ export default function MainContainer() {
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         backgroundColor: '#689794',
-                        borderTopRightRadius: 84,
-                        borderTopLeftRadius: 84,
-                        borderBottomLeftRadius: 84,
-                        borderBottomRightRadius: 84,
+                        borderTopRightRadius: 60,
+                        borderTopLeftRadius: 60,
+                        borderBottomLeftRadius: 60,
+                        borderBottomRightRadius: 60,
                         position: 'absolute',
-                        bottom: 20,
+                        bottom: 10,
                         left: 10,
                         right: 10,
-                        height: 80,
+                        height: 60,
+                        paddingTop: 10,
                         paddingBottom: 10,
                     }
                 })}>
